@@ -28,8 +28,6 @@ The admin dashboard provides a powerful interface for administrators to manage t
 
 - Car Management
 
-  :
-
   - **Add Cars**: Administrators can add new cars to the inventory, specifying details such as make, model, year, color, and more.
   - **Update Cars**: Administrators can update car information, including maintenance records, insurance details, and availability status.
   - **Delete Cars**: Administrators can remove cars from the inventory when they are no longer available for rent.
@@ -40,8 +38,6 @@ The admin dashboard provides a powerful interface for administrators to manage t
 
 - Customer Management
 
-  :
-
   - **Manage Profiles**: Administrators can view and update customer profiles, ensuring all information is accurate and up-to-date.
   - **View Rentals**: Administrators can access detailed information about all rentals, including rental periods, customer details, and car information.
   - **Assist with Rentals**: Administrators can assist customers by creating, updating, or canceling rentals on their behalf.
@@ -51,4 +47,8 @@ The admin dashboard provides a powerful interface for administrators to manage t
 - **User Management**: Administrators can manage user accounts, including registration, role assignment, and access control to ensure the platform is secure.
 
 - **Reports and Analytics**: Administrators can generate reports and view analytics to gain insights into the platform’s performance and make data-driven decisions.
+
+## Admin Management Dashboard
+
+![CarLeasing-client-admin](https://github.com/user-attachments/assets/b59a27c6-3c59-4fcc-9a2f-ca21728c5090)
 
