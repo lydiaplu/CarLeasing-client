@@ -3,7 +3,7 @@ import React from 'react'
 import MainHeader from '../layout/MainHeader'
 import Parallax from './parallax/Parallax'
 import Parallax2 from "./parallax/Parallax2"
-import CarSearch from '../search/CarSearch'
+import CarSearch from './search/CarSearch'
 
 function Home() {
     return (

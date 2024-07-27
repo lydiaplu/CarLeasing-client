@@ -10,24 +10,28 @@ export default function CarTypeFilterBar({ searchBarData, setSearchBarData }) {
         dispatchUpdateField(name, value);
 
         if (name === "carBrand") {
-            setSearchBarData(prevState => ({
-                ...prevState,
+            setSearchBarData({
+                ...searchBarData,
                 carBrand: value,
                 model: "",
                 carType: ""
-            }));
+            });
+
         } else if (name === "model") {
-            setSearchBarData(prevState => ({
-                ...prevState,
+            setSearchBarData({
+                ...searchBarData,
                 model: value,
                 carType: ""
-            }));
+            });
         } else if (name === "carType") {
             setSearchBarData({ ...searchBarData, carType: value })
         }
     }
 
     const renderOptions = (treeNode) => {
+        if (treeNode) {
+            console.log("treeNode: ", treeNode);
+        }
         return treeNode ? Object.values(treeNode.children).map(item => (
             <option key={item.value} value={item.value}>{item.name}</option>
         )) : null;

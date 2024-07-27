@@ -54,7 +54,7 @@ import ViewPayment from './components/payment/ViewPayment'
 function AdminApp() {
     return (
         <Routes>
-            <Route path="/" element={<MainLayout />}>
+            <Route path="*" element={<MainLayout />}>
                 <Route path="carbrands" element={<CarBrandList />} />
                 <Route path="carbrands/add" element={<AddCarBrand />} />
                 <Route path="carbrands/edit/:carBrandId" element={<EditCarBrand />} />

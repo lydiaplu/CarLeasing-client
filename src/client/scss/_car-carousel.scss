@@ -1,0 +1,48 @@
+.my-swiper-container {
+    position: relative;
+    // width: 80%;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.my-swiper {
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+.my-swiper-slide {
+    width: auto !important;
+    /* 防止 SwiperSlide 占满整个宽度 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    // background-color: rgba(0, 0, 0, 0.5);
+    color: #777;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.swiper-button-prev {
+    left: -50px;
+}
+
+.swiper-button-next {
+    right: -50px;
+}
+
+@media (max-width: 768px) {
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
+    }
+}

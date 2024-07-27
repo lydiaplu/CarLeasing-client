@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import CarTypeFilterBar from '../common/filter/CarTypeFilterBar'
-import SearchCarCarousel from '../common/carousel/SearchCarCarousel'
+import React, { useEffect, useState } from 'react'
+import CarTypeFilterBar from '../../common/filter/CarTypeFilterBar'
+import moment from 'moment'
 
-export default function CarSearch() {
+export default function CarSearchForm({ queryCarData }) {
     const searchInputObj = {
-        CheckInDate: "",
-        CheckOutDate: "",
+        CheckInDate: moment().add(1, 'days').format("YYYY-MM-DD"),
+        CheckOutDate: moment().add(3, 'days').format("YYYY-MM-DD"),
         fuelType: "",
         carBrand: "",
         model: "",
@@ -16,11 +16,18 @@ export default function CarSearch() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setSearchInput({ ...searchInput, [name]: value })
+        const newSearchInput = { ...searchInput, [name]: value }
+        setSearchInput(newSearchInput)
+        queryCarData(newSearchInput);
     }
 
+    const handleCarTypeFilterChange = (newSearchInput) => {
+        setSearchInput(newSearchInput);
+        queryCarData(newSearchInput);
+    };
+
     return (
-        <div className='car-search'>
+        <>
             <form>
                 <div className='container search-container'>
                     {/* Check-in Date */}
@@ -83,11 +90,9 @@ export default function CarSearch() {
 
                     <CarTypeFilterBar
                         searchBarData={searchInput}
-                        setSearchBarData={setSearchInput} />
+                        setSearchBarData={handleCarTypeFilterChange} />
                 </div>
             </form>
-
-            <SearchCarCarousel searchInput={searchInput} />
-        </div>
+        </>
     )
 }

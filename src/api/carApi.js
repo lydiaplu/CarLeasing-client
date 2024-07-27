@@ -49,6 +49,24 @@ export async function getDistinctCarByEveryType() {
     }
 }
 
+export async function getCarByCheckInOutDataAndFuletypeBrandModelType(searchInput) {
+    try {
+        const filterParams = Object.keys(searchInput).reduce((acc, key) => {
+            if (searchInput[key] !== "") {
+                acc[key] = searchInput[key];
+            }
+            return acc;
+        }, {});
+
+        const params = new URLSearchParams(filterParams).toString();
+        const result = await api.get(`/cars/all-by-checkinout-fueltype-brand-model-type?${params}`);
+        return result.data;
+
+    } catch (error) {
+        throw new Error(`Error fetching car by group ${error.message}`)
+    }
+}
+
 export async function deleteCar(carId) {
     try {
         const result = await api.delete(`/cars/delete/${carId}`)
