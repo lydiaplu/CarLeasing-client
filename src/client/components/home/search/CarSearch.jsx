@@ -4,7 +4,7 @@ import CarSearchForm from './CarSearchForm'
 import { getCarByCheckInOutDataAndFuletypeBrandModelType, getDistinctCarByEveryType } from '../../../../api/carApi';
 
 export default function CarSearch() {
-    const [carData, setCarData] = useState([]);
+    const [carData, setCarData] = useState();
 
     useEffect(() => {
         const fetchCarBrands = async () => {

@@ -4,7 +4,7 @@ import moment from 'moment'
 
 export default function CarSearchForm({ queryCarData }) {
     const searchInputObj = {
-        CheckInDate: moment().add(1, 'days').format("YYYY-MM-DD"),
+        CheckInDate: moment().format("YYYY-MM-DD"),
         CheckOutDate: moment().add(3, 'days').format("YYYY-MM-DD"),
         fuelType: "",
         carBrand: "",

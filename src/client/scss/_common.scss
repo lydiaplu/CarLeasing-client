@@ -1,0 +1,79 @@
+// auth container part
+.auth-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+
+    .auth-wrap {
+        width: 100%;
+        max-width: 416px;
+        margin: auto;
+        margin-top: 20%;
+        margin-bottom: 10%;
+    }
+
+    .auth-form {
+        margin-top: 35px;
+    }
+}
+
+// form input part
+.form-input-wrap {
+    padding: 15px 0;
+
+    .form-label {
+        font-weight: 700;
+        width: 100%;
+    }
+
+    .form-input {
+        width: 100%;
+        height: 56px;
+        border: 1px solid #e7e7e9;
+        padding: 18px 20px;
+        border-radius: 12px;
+        outline: none;
+        background-color: #fff;
+        color: #0d0c22;
+        // appearance: none;
+    }
+
+    .form-input:focus,
+    .form-input:active,
+    .form-input:hover {
+        border-color: $primary-red-color;
+        -webkit-box-shadow: 0 0 0 4px $primary-red-color-box-shadow;
+        box-shadow: 0 0 0 4px $primary-red-color-box-shadow;
+
+        // -webkit-box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
+        // box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
+    }
+
+    .form-input.readonly {
+        background-color: $form-input-readonly;
+    }
+}
+
+.form-input-wrap.required {
+    label::after {
+        content: "*";
+        color: $primary-red-color;
+        padding-left: .2rem;
+        vertical-align: middle;
+    }
+}
+
+// black button
+.button-black {
+    height: 56px;
+    border: none;
+    border-radius: 56px;
+    background-color: #0d0c22;
+    color: #fff;
+
+    &:hover {
+        background-color: #565564;
+    }
+}

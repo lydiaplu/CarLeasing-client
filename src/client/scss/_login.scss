@@ -1,0 +1,32 @@
+.login-container {
+    .form-label {
+        .reset-password {
+            float: right;
+            color: #0d0c22;
+            font-size: 14px;
+            font-weight: normal;
+            text-decoration: underline;
+        }
+    }
+
+    .sign-in {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .sign-up {
+        width: 100%;
+        text-align: center;
+        color: #3d3d4e;
+        font: normal 14px / 20px "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        margin: 20px 0;
+
+        a {
+            color: $primary-red-color;
+
+            &:hover {
+                color: $primary-red-color-hover;
+            }
+        }
+    }
+}

@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  assetsInclude: ['**/*.JPG'], 
+    plugins: [react()],
+    assetsInclude: ['**/*.JPG'],
+    server: {
+        port: 5174,
+    },
 })
+

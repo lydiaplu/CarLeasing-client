@@ -3,9 +3,15 @@
     padding-bottom: 50px;
 
     @import "variables";
+    @import "common";
     @import "nav";
     @import "home";
     @import "car-search";
     @import "car-carousel";
     @import "car-card";
+    @import "login";
+    @import "reset-password";
+    @import "register";
+    @import "profile";
+    @import "image-uploader";
 }

@@ -10,7 +10,8 @@ import CarCard from '../carCard/CarCard';
 export default function SearchCarCarousel({ carData }) {
     return (
         <div className="container my-swiper-container">
-            {carData === null ? <div>Loading...</div> :
+            {carData && carData.length === 0 ? <div className="no-result">No car found</div> : null}
+            {carData ?
                 <>
                     <Swiper
                         spaceBetween={50}
@@ -50,8 +51,8 @@ export default function SearchCarCarousel({ carData }) {
                     <div className="swiper-button-prev"></div>
                     <div className="swiper-button-next"></div>
                 </>
+                : <div className="loading">Loading...</div>
             }
-            {carData.length === 0 ? <div className="no-result">No car found</div> : null}
         </div>
     )
 }

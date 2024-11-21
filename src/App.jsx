@@ -9,14 +9,14 @@ import ClientApp from './client/ClientApp'
 import AdminApp from './admin/AdminApp'
 
 function App() {
-  return (
-    <Router>
-        <Routes>
-            <Route path="/" element={<ClientApp />} />
-            <Route path="/admin/*" element={<AdminApp />} />
-        </Routes>
-    </Router>
-  )
+    return (
+        <Router>
+            <Routes>
+                <Route path="/*" element={<ClientApp />} />
+                <Route path="/admin/*" element={<AdminApp />} />
+            </Routes>
+        </Router>
+    )
 }
 
 export default App
