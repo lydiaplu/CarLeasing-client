@@ -1,8 +1,9 @@
 .client {
     min-height: 100vh;
-    padding-bottom: 50px;
+    // padding-bottom: 50px;
 
     @import "variables";
+    @import "initialize";
     @import "common";
     @import "nav";
     @import "home";
@@ -14,4 +15,5 @@
     @import "register";
     @import "profile";
     @import "image-uploader";
+    @import "tab-selector";
 }

@@ -1,0 +1,45 @@
+.tabContainer {
+    margin-bottom: 25px;
+
+    .tabLabel {
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .tabSelector {
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 20px;
+
+            li {
+                border: 1px solid rgba(0, 0, 0, 0.175);
+                padding: 8px 15px;
+                background-color: #fff;
+                border-radius: 8px;
+                text-align: center;
+                font-family: 'Arial', sans-serif;
+                font-size: 14px;
+                color: #333;
+                transition: all 0.3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f9f3f6;
+                    border-color: #a94d7b;
+                }
+
+                &.selected {
+                    background-color: #a94d7b;
+                    border-color: #a94d7b;
+                    color: #fff;
+                }
+
+
+            }
+        }
+    }
+}

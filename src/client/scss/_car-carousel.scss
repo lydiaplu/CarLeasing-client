@@ -1,14 +1,14 @@
 .my-swiper-container {
     position: relative;
-    // width: 80%;
     margin: 0 auto;
     margin-top: 60px;
+
+    .my-swiper {
+        width: 100%;
+        padding-bottom: 60px;
+    }
 }
 
-.my-swiper {
-    width: 100%;
-    padding-bottom: 60px;
-}
 
 .my-swiper-slide {
     width: auto !important;

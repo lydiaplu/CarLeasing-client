@@ -67,6 +67,26 @@ export async function getCarByCheckInOutDataAndFuletypeBrandModelType(searchInpu
     }
 }
 
+export async function getCarByTypeAndBrand(searchInput) {
+    try {
+        console.log("getCarByTypeAndBrand: ", searchInput);
+
+        const filterParams = Object.keys(searchInput).reduce((acc, key) => {
+            if (searchInput[key] !== "") {
+                acc[key] = searchInput[key];
+            }
+            return acc;
+        }, {});
+
+        const params = new URLSearchParams(filterParams).toString();
+        const result = await api.get(`/cars/all-by-type-brand?${params}`);
+        return result.data;
+
+    } catch (error) {
+        throw new Error(`Error fetching car by group ${error.message}`)
+    }
+}
+
 export async function deleteCar(carId) {
     try {
         const result = await api.delete(`/cars/delete/${carId}`)
