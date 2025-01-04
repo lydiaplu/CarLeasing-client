@@ -59,3 +59,13 @@ export async function getCarReviewsByCarId(carId) {
         throw new Error(`Error fetching car ${error.message}`)
     }
 }
+
+export async function getCarReviewByRentedId(rentedId) {
+    try {
+        const result = await api.get(`/reviews/by-rented-id/${rentedId}`);
+        return result.data;
+
+    } catch (error) {
+        throw new Error(`Error fetching car ${error.message}`)
+    }
+}

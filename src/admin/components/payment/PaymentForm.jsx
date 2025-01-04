@@ -5,16 +5,22 @@ import { useLoading } from '../providers/LoadingProvider';
 import { useMessage } from '../providers/MessageProvider';
 import { base64ToFile } from '../../../utils/convertPicture';
 import { adminConfig } from '../../../config/adminConfig';
-import { getCarReviewById } from '../../../api/carReviewApi';
+import { getPaymentById } from '../../../api/paymentApi';
 
-export default function CarReviewForm({ formState, onSubmit }) {
+export default function PaymentForm({ formState, onSubmit }) {
     const { showMessage } = useMessage();
-    const { reviewId } = useParams();
+    const { paymentId } = useParams();
 
-    const carReviewObj = {
+    const paymentObj = {
         id: "",
-        reviewDate: "",
-        rating: "",
+
+        amount: "",
+        paymentDate: "",
+        paymentMethod: "",
+        paymentStatus: "",
+
+        startDate: "",
+        endDate: "",
 
         customerName: "",
         customerEmail: "",
@@ -25,36 +31,36 @@ export default function CarReviewForm({ formState, onSubmit }) {
         carYear: "",
         carLicensePlate: "",
         carColor: "",
-        startDate: "",
-        endDate: "",
-        comment: ""
     };
 
-    const [carReviews, setCarReviews] = useState(carReviewObj);
+    const [paymentData, setPaymentData] = useState(paymentObj);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const resultData = await getCarReviewById(reviewId);
+                const resultData = await getPaymentById(paymentId);
                 console.log("get resultData: ", resultData);
 
-                resultData && setCarReviews({
+                resultData && setPaymentData({
                     id: resultData.id,
-                    reviewDate: resultData.reviewDate,
-                    rating: resultData.rating,
+
+                    amount: resultData.amount,
+                    paymentDate: resultData.paymentDate,
+                    paymentMethod: resultData.paymentMethod,
+                    paymentStatus: resultData.paymentStatus,
+
+                    startDate: resultData.rentedCar.startDate,
+                    endDate: resultData.rentedCar.endDate,
 
                     customerName: `${resultData.customer.firstName} ${resultData.customer.middleName} ${resultData.customer.lastName}`,
                     customerEmail: resultData.customer.email,
                     customerDriverLicenseNumber: resultData.customer.driverLicenseNumber,
 
-                    carBrand: resultData.car.carBrand.name,
-                    carModel: resultData.car.model,
-                    carYear: resultData.car.year,
-                    carLicensePlate: resultData.car.licensePlate,
-                    carColor: resultData.car.color,
-                    startDate: resultData.rentedCar.startDate,
-                    endDate: resultData.rentedCar.endDate,
-                    comment: resultData.comment
+                    carBrand: resultData.rentedCar.car.carBrand.name,
+                    carModel: resultData.rentedCar.car.model,
+                    carYear: resultData.rentedCar.car.year,
+                    carLicensePlate: resultData.rentedCar.car.licensePlate,
+                    carColor: resultData.rentedCar.car.color
                 });
 
             } catch (error) {
@@ -62,8 +68,8 @@ export default function CarReviewForm({ formState, onSubmit }) {
             }
         }
 
-        reviewId && fetchData();
-    }, [reviewId])
+        paymentId && fetchData();
+    }, [paymentId])
 
     const handleInputChange = (event) => {
         if (formState === adminConfig.formState.view) return;
@@ -71,15 +77,14 @@ export default function CarReviewForm({ formState, onSubmit }) {
         const name = event.target.name;
         let value = event.target.value;
 
-        setCarReviews({ ...carReviews, [name]: value })
+        setPaymentData({ ...paymentData, [name]: value })
     }
-
 
     return (
         <div className="card card-info card-outline mb-4">
             <div className="card-header">
                 <div className="card-title">
-                    {formState.charAt(0).toUpperCase() + formState.slice(1) + " Car Review"}
+                    {formState.charAt(0).toUpperCase() + formState.slice(1) + " Car Rental"}
                 </div>
             </div>
 
@@ -87,158 +92,74 @@ export default function CarReviewForm({ formState, onSubmit }) {
                 <div className="card-body">
                     <div className="row g-3">
 
-                        {/* reviewDate */}
+                        {/* amount */}
                         <div className="col-md-6">
-                            <label htmlFor="reviewDate" className="form-label">
-                                Review Date
+                            <label htmlFor="amount" className="form-label">
+                                Amount
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="reviewDate"
-                                name="reviewDate"
-                                value={carReviews.customerName}
+                                id="amount"
+                                name="amount"
+                                value={paymentData.amount}
                                 onChange={handleInputChange}
+                                required
                             />
                             <div className="valid-feedback"></div>
                         </div>
 
-                        {/* rating */}
+                        {/* paymentDate */}
                         <div className="col-md-6">
-                            <label htmlFor="rating" className="form-label">
-                                Rating
+                            <label htmlFor="paymentDate" className="form-label">
+                                Payment Date
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="rating"
-                                name="rating"
-                                value={carReviews.rating}
+                                id="paymentDate"
+                                name="paymentDate"
+                                value={paymentData.paymentDate}
                                 onChange={handleInputChange}
+                                required
                             />
                             <div className="valid-feedback"></div>
                         </div>
 
-                        {/* customerName */}
+                        {/* paymentMethod */}
                         <div className="col-md-6">
-                            <label htmlFor="customerName" className="form-label">
-                                Customer Name
+                            <label htmlFor="paymentMethod" className="form-label">
+                                Payment Method
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="customerName"
-                                name="customerName"
-                                value={carReviews.customerName}
+                                id="paymentMethod"
+                                name="paymentMethod"
+                                value={paymentData.paymentMethod}
                                 onChange={handleInputChange}
+                                required
                             />
                             <div className="valid-feedback"></div>
                         </div>
-                        {/* customerEmail */}
+
+                        {/* paymentStatus */}
                         <div className="col-md-6">
-                            <label htmlFor="customerEmail" className="form-label">
-                                Customer Email
+                            <label htmlFor="paymentStatus" className="form-label">
+                                Payment Status
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="customerEmail"
-                                name="customerEmail"
-                                value={carReviews.customerEmail}
+                                id="paymentStatus"
+                                name="paymentStatus"
+                                value={paymentData.paymentStatus}
                                 onChange={handleInputChange}
+                                required
                             />
                             <div className="valid-feedback"></div>
                         </div>
-                        {/* customerDriverLicenseNumber */}
-                        <div className="col-md-6">
-                            <label htmlFor="customerDriverLicenseNumber" className="form-label">
-                                Driver Lincese Number
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="customerDriverLicenseNumber"
-                                name="customerDriverLicenseNumber"
-                                value={carReviews.customerDriverLicenseNumber}
-                                onChange={handleInputChange}
-                            />
-                            <div className="valid-feedback"></div>
-                        </div>
-                        {/* carBrand */}
-                        <div className="col-md-6">
-                            <label htmlFor="carBrand" className="form-label">
-                                Car Brand
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="carBrand"
-                                name="carBrand"
-                                value={carReviews.carBrand}
-                                onChange={handleInputChange}
-                            />
-                            <div className="valid-feedback"></div>
-                        </div>
-                        {/* carModel */}
-                        <div className="col-md-6">
-                            <label htmlFor="carModel" className="form-label">
-                                Car Model
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="carModel"
-                                name="carModel"
-                                value={carReviews.carModel}
-                                onChange={handleInputChange}
-                            />
-                            <div className="valid-feedback"></div>
-                        </div>
-                        {/* Car Year */}
-                        <div className="col-md-6">
-                            <label htmlFor="carYear" className="form-label">
-                                Car Year
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="carYear"
-                                name="carYear"
-                                value={carReviews.carYear}
-                                onChange={handleInputChange}
-                            />
-                            <div className="valid-feedback"></div>
-                        </div>
-                        {/* carLicensePlate */}
-                        <div className="col-md-6">
-                            <label htmlFor="carLicensePlate" className="form-label">
-                                Car License Plate
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="carLicensePlate"
-                                name="carLicensePlate"
-                                value={carReviews.carLicensePlate}
-                                onChange={handleInputChange}
-                            />
-                            <div className="valid-feedback"></div>
-                        </div>
-                        {/* carColor */}
-                        <div className="col-md-6">
-                            <label htmlFor="carColor" className="form-label">
-                                Car Color
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="carColor"
-                                name="carColor"
-                                value={carReviews.carColor}
-                                onChange={handleInputChange}
-                            />
-                            <div className="valid-feedback"></div>
-                        </div>
+
                         {/* startDate */}
                         <div className="col-md-6">
                             <label htmlFor="startDate" className="form-label">
@@ -249,7 +170,7 @@ export default function CarReviewForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="startDate"
                                 name="startDate"
-                                value={carReviews.startDate}
+                                value={paymentData.startDate}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -265,24 +186,131 @@ export default function CarReviewForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="endDate"
                                 name="endDate"
-                                value={carReviews.endDate}
+                                value={paymentData.endDate}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
                         </div>
-                        {/* comment */}
-                        <div className="col-md-12">
-                            <label htmlFor="comment" className="form-label">Description</label>
-                            <textarea
+                        {/* customerName */}
+                        <div className="col-md-6">
+                            <label htmlFor="customerName" className="form-label">
+                                Customer Name
+                            </label>
+                            <input
+                                type="text"
                                 className="form-control"
-                                id="comment"
-                                name="comment"
-                                value={carReviews.comment}
+                                id="customerName"
+                                name="customerName"
+                                value={paymentData.customerName}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
                         </div>
-
+                        {/* customerEmail */}
+                        <div className="col-md-6">
+                            <label htmlFor="customerEmail" className="form-label">
+                                Customer Email
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="customerEmail"
+                                name="customerEmail"
+                                value={paymentData.customerEmail}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
+                        {/* customerDriverLicenseNumber */}
+                        <div className="col-md-6">
+                            <label htmlFor="customerDriverLicenseNumber" className="form-label">
+                                Driver Lincese Number
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="customerDriverLicenseNumber"
+                                name="customerDriverLicenseNumber"
+                                value={paymentData.customerDriverLicenseNumber}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
+                        {/* carBrand */}
+                        <div className="col-md-6">
+                            <label htmlFor="carBrand" className="form-label">
+                                Car Brand
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="carBrand"
+                                name="carBrand"
+                                value={paymentData.carBrand}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
+                        {/* carModel */}
+                        <div className="col-md-6">
+                            <label htmlFor="carModel" className="form-label">
+                                Car Model
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="carModel"
+                                name="carModel"
+                                value={paymentData.carModel}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
+                        {/* Car Year */}
+                        <div className="col-md-6">
+                            <label htmlFor="carYear" className="form-label">
+                                Car Year
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="carYear"
+                                name="carYear"
+                                value={paymentData.carYear}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
+                        {/* carLicensePlate */}
+                        <div className="col-md-6">
+                            <label htmlFor="carLicensePlate" className="form-label">
+                                Car License Plate
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="carLicensePlate"
+                                name="carLicensePlate"
+                                value={paymentData.carLicensePlate}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
+                        {/* carColor */}
+                        <div className="col-md-6">
+                            <label htmlFor="carColor" className="form-label">
+                                Car Color
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="carColor"
+                                name="carColor"
+                                value={paymentData.carColor}
+                                onChange={handleInputChange}
+                            />
+                            <div className="valid-feedback"></div>
+                        </div>
                     </div>
                 </div>
 

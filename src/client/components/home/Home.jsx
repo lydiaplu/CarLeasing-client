@@ -8,6 +8,7 @@ import CarPopular from './search/CarPopular'
 import RentService from './service/RentService'
 import MainFooter from './footer/MainFooter'
 import CopyrightInfo from './footer/CopyrightInfo'
+import NewestCar from './newestCar/NewestCar'
 
 function Home() {
     return (
@@ -24,6 +25,8 @@ function Home() {
             <div className='container'>
                 <Parallax2 />
             </div>
+
+            <NewestCar />
 
             <div className='container'>
                 <RentService />

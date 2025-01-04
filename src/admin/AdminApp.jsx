@@ -43,9 +43,9 @@ import CustomerList from "./components/customer/CustomerList"
 import AddCustomer from "./components/customer/AddCustomer"
 import EditCustomer from "./components/customer/EditCustomer"
 import ViewCustomer from "./components/customer/ViewCustomer"
-// car-rental
-import CarRentalList from './components/carRental/CarRentalList'
-import ViewCarRental from './components/carRental/ViewCarRental'
+// rented-car
+import RentedCarList from './components/RentedCar/RentedCarList'
+import ViewRentedCar from './components/RentedCar/ViewRentedCar'
 // payment
 import PaymentList from './components/payment/PaymentList'
 import ViewPayment from './components/payment/ViewPayment'
@@ -93,8 +93,8 @@ function AdminApp() {
                 <Route path="customers/edit/:customerId" element={<EditCustomer />} />
                 <Route path="customers/view/:customerId" element={<ViewCustomer />} />
 
-                <Route path="rentals" element={<CarRentalList />} />
-                <Route path="rentals/view/:rentalId" element={<ViewCarRental />} />
+                <Route path="rentals" element={<RentedCarList />} />
+                <Route path="rentals/view/:rentedId" element={<ViewRentedCar />} />
 
                 <Route path="payments" element={<PaymentList />} />
                 <Route path="payments/view/:paymentId" element={<ViewPayment />} />

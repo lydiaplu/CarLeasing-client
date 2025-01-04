@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { useMessage } from '../providers/MessageProvider'
 import { adminConfig } from '../../../config/adminConfig';
-import { getAllCarRentals } from '../../../api/carRentalApi';
+import { getAllRentedCars } from '../../../api/RentedCarApi';
 import { getAllModelOptions } from '../../../api/carApi';
 import { getAllCarBrandsOptions } from '../../../api/carBrandsApi';
 // import { getAllCarTypesOptions } from '../../../api/carTypesApi';
@@ -17,21 +17,22 @@ import FilterButton from '../content/filter/FilterButton';
 import FilterSelect from '../content/filter/FilterSelect';
 import CarTypeFilterBar from '../content/carCascadeFilterForm/CarTypeFilterBar';
 
-export default function CarRentalList() {
+export default function RentedCarList() {
     const TABLE_HEADER = {
         id: "No.",
-        rentalDate: "Rental Date",
-        returnDate: "Return Date",
+        startDate: "Start Date",
+        endDate: "End Date",
 
         customerName: "Customer Name",
         customerEmail: "Customer Email",
-        customerDriverLinceseNumber: "Driver Lincese Number",
+        customerDriverLicenseNumber: "Driver Lincense Number",
 
         carBrand: "Car Brand",
         carModel: "Car Model",
         carYear: "Car Year",
         carLicensePlate: "License Plate",
         carColor: "Car Color",
+        status: "Status",
         operations: "Operations"
     }
     const ITEMS_PER_PAGE = adminConfig.itemsPerPage;
@@ -40,7 +41,7 @@ export default function CarRentalList() {
     const [isLoading, setIsLoading] = useState(false);
 
     // data part
-    const [carRentals, setCarRentals] = useState([]);
+    const [rentedCars, setRentedCars] = useState([]);
     // paginator data part
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -60,9 +61,9 @@ export default function CarRentalList() {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const result = await getAllCarRentals();
+                const result = await getAllRentedCars();
                 console.log("fetchData result: ", result);
-                setCarRentals(result);
+                setRentedCars(result);
             } catch (error) {
                 showMessage(error.message, adminConfig.colorEmun.danger);
             }
@@ -76,14 +77,14 @@ export default function CarRentalList() {
     }, [searchedCustomerName, searchedDriverLicenseNumber, searchBarData])
 
     const filteredData = useMemo(() => {
-        return carRentals.filter((item) => (
+        return rentedCars.filter((item) => (
             (!searchedCustomerName || `${item.customer.firstName} ${item.customer.middleName} ${item.customer.lastName}`.toLowerCase().includes(searchedCustomerName))
             && (!searchedDriverLicenseNumber || item.customer.driverLicenseNumber.toLowerCase().includes(searchedDriverLicenseNumber))
             && (!searchBarData.selectedCarBrand || item.car.carBrand.id.toString() === searchBarData.selectedCarBrand)
             && (!searchBarData.selectedModel || item.car.model === searchBarData.selectedModel)
             && (!searchBarData.selectedCarType || item.car.carType.id.toString() === searchBarData.selectedCarType)
         ))
-    }, [carRentals, searchedCustomerName, searchedDriverLicenseNumber, searchBarData])
+    }, [rentedCars, searchedCustomerName, searchedDriverLicenseNumber, searchBarData])
 
     const currentData = useMemo(() => {
         const indexOfLastData = currentPage * ITEMS_PER_PAGE;
@@ -107,18 +108,19 @@ export default function CarRentalList() {
             <tr className="align-middle" key={item.id}>
                 <td>{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
 
-                <td>{item.rentalDate}</td>
-                <td>{item.returnDate}</td>
+                <td>{item.startDate}</td>
+                <td>{item.endDate}</td>
 
                 <td>{`${item.customer.firstName} ${item.customer.middleName} ${item.customer.lastName}`}</td>
                 <td>{item.customer.email}</td>
-                <td>{item.customer.driverLinceseNumber}</td>
+                <td>{item.customer.driverLicenseNumber}</td>
 
                 <td>{item.car.carBrand.name}</td>
                 <td>{item.car.model}</td>
                 <td>{item.car.year}</td>
                 <td>{item.car.licensePlate}</td>
                 <td>{item.car.color}</td>
+                <td><span className={item.status === "RENTED" ? "stauts-green" : "stauts-red"}>{item.status}</span></td>
 
                 <td className="fixed-column last-fixed-column">
                     {<TableViewButton link={`view/${item.id}`} />}
@@ -128,12 +130,12 @@ export default function CarRentalList() {
         ))
     }
 
-    // const handleDelete = async (carRentalId) => {
+    // const handleDelete = async (RentedCarId) => {
     //     try {
-    //         const result = await deleteCar(carRentalId);
+    //         const result = await deleteCar(RentedCarId);
     //         if (result === "") {
     //             showMessage(`Car Rental was deleted!`, adminConfig.colorEnum.success);
-    //             setCarRentals(carRentals.filter(item => item.id !== carRentalId));
+    //             setRentedCars(rentedCars.filter(item => item.id !== RentedCarId));
     //         }
     //     } catch (error) {
     //         showMessage(error.message, adminConfig.colorEmun.danger);
@@ -187,11 +189,11 @@ export default function CarRentalList() {
                     </div>
                 </div>
                 {/* <div className="col-sm-2 d-flex justify-content-end align-items-end">
-                <Link to="add" className="btn btn-success">
-                    <i className="bi bi-plus-circle pe-2"></i>
-                    Add Car
-                </Link>
-            </div> */}
+                    <Link to="add" className="btn btn-success">
+                        <i className="bi bi-plus-circle pe-2"></i>
+                        Add Car
+                    </Link>
+                </div> */}
             </section >
 
             {

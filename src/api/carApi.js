@@ -87,6 +87,24 @@ export async function getCarByTypeAndBrand(searchInput) {
     }
 }
 
+export async function getCarByPopularRented(size = 20) {
+    try {
+        const result = await api.get(`/cars/popular-rented?page=0&size=${size}`);
+        return result.data;
+    } catch (error) {
+        throw new Error(`Error fetching ${error.message}`)
+    }
+}
+
+export async function getNewestCar(size = 20) {
+    try {
+        const result = await api.get(`/cars/newest-cars?page=0&size=${size}`);
+        return result.data;
+    } catch (error) {
+        throw new Error(`Error fetching ${error.message}`)
+    }
+}
+
 export async function deleteCar(carId) {
     try {
         const result = await api.delete(`/cars/delete/${carId}`)

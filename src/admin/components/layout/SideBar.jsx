@@ -172,13 +172,13 @@ function SideBar({ isSideBarOpen }) {
 
 
                         <li className="nav-item">
-                            <a
-                                href="rentals"
+                            <Link
+                                to="rentals"
                                 className={["nav-link", page === "customers" && "active"].filter(Boolean).join(' ')}
                             >
                                 <i className="nav-icon bi bi-receipt-cutoff"></i>
                                 <p>Rentals</p>
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
                             <Link

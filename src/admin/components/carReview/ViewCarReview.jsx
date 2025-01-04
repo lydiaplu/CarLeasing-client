@@ -1,9 +1,9 @@
 import React from 'react'
+import { adminConfig } from '../../../config/adminConfig'
+import CarReviewForm from './CarReviewForm'
 
 export default function ViewCarReview() {
   return (
-    <div>
-      
-    </div>
+    <CarReviewForm formState={adminConfig.formState.view} />
   )
 }

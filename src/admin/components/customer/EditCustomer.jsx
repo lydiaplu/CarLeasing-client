@@ -14,8 +14,8 @@ export default function EditCustomer() {
             if (result.status === 200) {
                 // save pictures after add information. I did not find better way.
                 try {
-                    customer.driverLicenseFrontPhoto = await resizeImage(customer.driverLicenseFrontPhoto, 800, 600, 0.7);
-                    customer.driverLicenseBackPhoto = await resizeImage(customer.driverLicenseBackPhoto, 800, 600, 0.7);
+                    customer.driverLicenseFrontPhoto = customer.driverLicenseFrontPhoto && await resizeImage(customer.driverLicenseFrontPhoto, 800, 600, 0.7);
+                    customer.driverLicenseBackPhoto = customer.driverLicenseBackPhoto && await resizeImage(customer.driverLicenseBackPhoto, 800, 600, 0.7);
                 } catch (error) {
                     console.error('Error compressing the image', error);
                 }

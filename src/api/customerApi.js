@@ -14,8 +14,8 @@ export async function editCustomer(customerId, customer) {
 
 export async function updateDriverLicensePhotos(customerId, driverLicenseFrontPhoto, driverLicenseBackPhoto) {
     const formData = new FormData();
-    formData.append("driverLicenseFrontPhoto", driverLicenseFrontPhoto);
-    formData.append("driverLicenseBackPhoto", driverLicenseBackPhoto);
+    driverLicenseFrontPhoto && formData.append("driverLicenseFrontPhoto", driverLicenseFrontPhoto);
+    driverLicenseFrontPhoto && formData.append("driverLicenseBackPhoto", driverLicenseBackPhoto);
 
     const response = await api.put(`/customers/upload/driver-license-photos/${customerId}`, formData, {
         headers: { ...getHeader(), "Content-Type": "multipart/form-data" }

@@ -1,4 +1,6 @@
 export function base64ToFile(base64, filename) {
+    if (!base64) return null;
+
     base64 = `data:image/jpeg;base64,${base64}`;
     // 将base64字符串转换为字节序列
     const byteString = atob(base64.split(',')[1]);

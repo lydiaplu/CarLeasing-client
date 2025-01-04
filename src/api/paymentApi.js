@@ -50,9 +50,9 @@ export async function getPaymentsByCustomerId(customerId) {
     }
 }
 
-export async function getPaymentsByRentalId(rentalId) {
+export async function getPaymentsByRentedId(rentalId) {
     try {
-        const result = await api.get(`/payments/by-rental-id/${rentalId}`);
+        const result = await api.get(`/payments/by-rented-id/${rentedId}`);
         return result.data;
 
     } catch (error) {

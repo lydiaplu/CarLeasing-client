@@ -5,20 +5,20 @@ import { useLoading } from '../providers/LoadingProvider';
 import { useMessage } from '../providers/MessageProvider';
 import { base64ToFile } from '../../../utils/convertPicture';
 import { adminConfig } from '../../../config/adminConfig';
-import { getCarRentalById } from '../../../api/carRentalApi';
+import { getRentedCarById } from '../../../api/RentedCarApi';
 
-export default function CarRentalForm({ formState, onSubmit }) {
+export default function RentedCarForm({ formState, onSubmit }) {
     const { showMessage } = useMessage();
-    const { carRentalId } = useParams();
+    const { rentedId } = useParams();
 
-    const carRentalObj = {
+    const rentedCarObj = {
         id: "",
-        rentalDate: "",
-        returnDate: "",
+        startDate: "",
+        endDate: "",
 
         customerName: "",
         customerEmail: "",
-        customerDriverLinceseNumber: "",
+        customerDriverLicenseNumber: "",
 
         carBrand: "",
         carModel: "",
@@ -26,24 +26,25 @@ export default function CarRentalForm({ formState, onSubmit }) {
         carLicensePlate: "",
         carColor: "",
     };
-    const [carRental, setCarRental] = useState(carRentalObj);
+
+    const [rentedCar, setRentedCar] = useState(rentedCarObj);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const resultData = await getCarRentalById(carRentalId);
+                const resultData = await getRentedCarById(rentedId);
                 console.log("get resultData: ", resultData);
 
-                resultData && setCarRental({
+                resultData && setRentedCar({
                     id: resultData.id,
-                    rentalDate: resultData.rentalDate,
-                    returnDate: resultData.returnDate,
+                    startDate: resultData.startDate,
+                    endDate: resultData.endDate,
 
                     customerName: `${resultData.customer.firstName} ${resultData.customer.middleName} ${resultData.customer.lastName}`,
                     customerEmail: resultData.customer.email,
-                    customerDriverLicenseNumber: resultData.customer.driverlicenseNumber,
+                    customerDriverLicenseNumber: resultData.customer.driverLicenseNumber,
 
-                    carBrand: resultData.car.brand.name,
+                    carBrand: resultData.car.carBrand.name,
                     carModel: resultData.car.model,
                     carYear: resultData.car.year,
                     carLicensePlate: resultData.car.licensePlate,
@@ -55,8 +56,8 @@ export default function CarRentalForm({ formState, onSubmit }) {
             }
         }
 
-        carRentalId && fetchData();
-    }, [carRentalId])
+        rentedId && fetchData();
+    }, [rentedId])
 
     const handleInputChange = (event) => {
         if (formState === adminConfig.formState.view) return;
@@ -64,7 +65,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
         const name = event.target.name;
         let value = event.target.value;
 
-        setCarRental({ ...carRental, [name]: value })
+        setRentedCar({ ...rentedCar, [name]: value })
     }
 
     return (
@@ -81,33 +82,33 @@ export default function CarRentalForm({ formState, onSubmit }) {
 
 
 
-                        {/* rentalDate */}
+                        {/* startDate */}
                         <div className="col-md-6">
-                            <label htmlFor="rentalDate" className="form-label">
-                                Rental Date
+                            <label htmlFor="startDate" className="form-label">
+                                Start Date
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="rentalDate"
-                                name="rentalDate"
-                                value={carRental.rentalDate}
+                                id="startDate"
+                                name="startDate"
+                                value={rentedCar.startDate}
                                 onChange={handleInputChange}
                                 required
                             />
                             <div className="valid-feedback"></div>
                         </div>
-                        {/* returnDate */}
+                        {/* endDate */}
                         <div className="col-md-6">
-                            <label htmlFor="returnDate" className="form-label">
-                                Return Date
+                            <label htmlFor="endDate" className="form-label">
+                                End Date
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="returnDate"
-                                name="returnDate"
-                                value={carRental.returnDate}
+                                id="endDate"
+                                name="endDate"
+                                value={rentedCar.endDate}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -122,7 +123,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="customerName"
                                 name="customerName"
-                                value={carRental.customerName}
+                                value={rentedCar.customerName}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -137,22 +138,22 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="customerEmail"
                                 name="customerEmail"
-                                value={carRental.customerEmail}
+                                value={rentedCar.customerEmail}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
                         </div>
-                        {/* customerDriverLinceseNumber */}
+                        {/* customerDriverLicenseNumber */}
                         <div className="col-md-6">
-                            <label htmlFor="customerDriverLinceseNumber" className="form-label">
+                            <label htmlFor="customerDriverLicenseNumber" className="form-label">
                                 Driver Lincese Number
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="customerDriverLinceseNumber"
-                                name="customerDriverLinceseNumber"
-                                value={carRental.customerDriverLinceseNumber}
+                                id="customerDriverLicenseNumber"
+                                name="customerDriverLicenseNumber"
+                                value={rentedCar.customerDriverLicenseNumber}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -167,7 +168,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="carBrand"
                                 name="carBrand"
-                                value={carRental.carBrand}
+                                value={rentedCar.carBrand}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -182,7 +183,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="carModel"
                                 name="carModel"
-                                value={carRental.carModel}
+                                value={rentedCar.carModel}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -197,7 +198,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="carYear"
                                 name="carYear"
-                                value={carRental.carYear}
+                                value={rentedCar.carYear}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -212,7 +213,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="carLicensePlate"
                                 name="carLicensePlate"
-                                value={carRental.carLicensePlate}
+                                value={rentedCar.carLicensePlate}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
@@ -227,7 +228,7 @@ export default function CarRentalForm({ formState, onSubmit }) {
                                 className="form-control"
                                 id="carColor"
                                 name="carColor"
-                                value={carRental.carColor}
+                                value={rentedCar.carColor}
                                 onChange={handleInputChange}
                             />
                             <div className="valid-feedback"></div>
