@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 
 function SideBar({ isSideBarOpen }) {
+    const location = useLocation();
 
     const [mainPage, setMainPage] = useState("dashboard");
-    const [page, setPage] = useState("index");
+    const [page, setPage] = useState("rentalinsights");
+
+    useEffect(() => {
+        const lastPart = location.pathname.split('/').pop();
+        setPage(lastPart);
+    }, [location])
+
+
 
     const navToggleClick = (event) => {
         // find the closest ancestor li
@@ -60,31 +68,13 @@ function SideBar({ isSideBarOpen }) {
                             </a>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a
-                                        href=""
-                                        className={["nav-link", page === "index" && "active"].filter(Boolean).join(' ')}
+                                    <Link
+                                        to="rentalinsights"
+                                        className={["nav-link", page === "rentalinsights" && "active"].filter(Boolean).join(' ')}
                                     >
                                         <i className="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v1</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a
-                                        href=""
-                                        className={["nav-link", page === "index2" && "active"].filter(Boolean).join(' ')}
-                                    >
-                                        <i className="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a
-                                        href=""
-                                        className={["nav-link", page === "index3" && "active"].filter(Boolean).join(' ')}
-                                    >
-                                        <i className="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
+                                        <p>Rental Insights</p>
+                                    </Link>
                                 </li>
                             </ul>
                         </li>
@@ -174,7 +164,7 @@ function SideBar({ isSideBarOpen }) {
                         <li className="nav-item">
                             <Link
                                 to="rentals"
-                                className={["nav-link", page === "customers" && "active"].filter(Boolean).join(' ')}
+                                className={["nav-link", page === "rentals" && "active"].filter(Boolean).join(' ')}
                             >
                                 <i className="nav-icon bi bi-receipt-cutoff"></i>
                                 <p>Rentals</p>
@@ -183,7 +173,7 @@ function SideBar({ isSideBarOpen }) {
                         <li className="nav-item">
                             <Link
                                 to="payments"
-                                className={["nav-link", page === "customers" && "active"].filter(Boolean).join(' ')}
+                                className={["nav-link", page === "payments" && "active"].filter(Boolean).join(' ')}
                             >
                                 <i className="nav-icon bi bi-currency-dollar"></i>
                                 <p>Payments</p>
@@ -199,7 +189,7 @@ function SideBar({ isSideBarOpen }) {
                             </Link>
                         </li>
 
-                        <li className="nav-header">ADMINISTRATOR</li>
+                        {/* <li className="nav-header">ADMINISTRATOR</li>
 
                         <li className="nav-item">
                             <a
@@ -209,7 +199,7 @@ function SideBar({ isSideBarOpen }) {
                                 <i className="nav-icon bi bi-person-lines-fill"></i>
                                 <p>Admin Users</p>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                     {/* <!--end::Sidebar Menu--> */}
                 </nav>
