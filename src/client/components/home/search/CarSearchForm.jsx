@@ -44,7 +44,6 @@ export default function CarSearchForm({ queryCarData }) {
                             onChange={handleInputChange}
                             required
                         />
-                        <div className="valid-feedback"></div>
                     </div>
 
                     {/* Check-out Date */}
@@ -61,7 +60,6 @@ export default function CarSearchForm({ queryCarData }) {
                             onChange={handleInputChange}
                             required
                         />
-                        <div className="valid-feedback"></div>
                     </div>
 
                     {/* Fuel Type */}
@@ -85,7 +83,6 @@ export default function CarSearchForm({ queryCarData }) {
                                 </option>
                             ))}
                         </select>
-                        <div className="valid-feedback"></div>
                     </div>
 
                     <CarTypeFilterBar

@@ -1,0 +1,32 @@
+.no-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    text-align: center;
+    gap: 20px;
+    margin-top: -20%;
+
+    .auth-title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .auth-contex {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 15px;
+
+        a {
+            color: $primary-red-color;
+            margin-left: 15px;
+
+            &:hover {
+                color: $primary-red-color-hover;
+            }
+        }
+    }
+}

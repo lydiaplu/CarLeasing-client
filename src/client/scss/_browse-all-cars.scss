@@ -1,0 +1,192 @@
+// browse-all-cars
+.browse-all-cars-container {
+    background-color: #F9F9FB;
+
+    .browse-all-cars-content {
+        display: flex;
+        flex-direction: row;
+
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 50px 0;
+
+        .filter-container {
+            min-width: 350px;
+            max-width: 350px;
+
+            padding: 0 20px;
+            background-color: #fff;
+            margin-right: 30px;
+
+            .filter-part {
+                border-bottom: 1px solid #e4e6e9;
+                padding: 30px 0;
+
+                .filter-part-form {
+                    padding-top: 30px;
+                }
+            }
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+
+            width: 100%;
+            background-color: #fff;
+            // border: 1px solid red;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .browse-all-cars-container {
+        .browse-all-cars-content {
+            flex-direction: column;
+            padding-top: 0;
+
+            .filter-container {
+                width: 100%;
+                min-width: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+}
+
+// date-filter
+.date-filter-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+@media (max-width: 992px) {
+    .date-filter-container {
+        flex-direction: row;
+        align-items: stretch;
+
+        .form-label-wrap {
+            flex: 1;
+        }
+    }
+}
+
+// car-type-filter
+.car-type-filter-container {
+    .car-type-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 20px;
+        width: 100%;
+
+        .car-type-item {
+            cursor: pointer;
+
+            .car-type-img {
+                width: calc(70px * 1.2);
+                height: calc(40px * 1.2);
+                background-image: url(../../assets/images/car-type.jpg);
+                background-repeat: no-repeat;
+                background-size: calc(2500px * 0.12) calc(2000px * 0.12);
+                // border: 1px solid red;
+            }
+
+            &:hover,
+            &.selected {
+                .car-type-img {
+                    background-image: url(../../assets/images/car-type-selected.jpg);
+                }
+            }
+
+            .type-all {
+                background-position: 0 calc(-80px * 0.12);
+            }
+
+            .type-sedan {
+                background-position: calc(-830px * 0.12) calc(-520px * 0.12);
+            }
+
+            .type-suv {
+                background-position: calc(-1710px * 0.12) calc(-520px * 0.12);
+            }
+
+            .type-coupe {
+                background-position: calc(0px * 0.12) calc(-520px * 0.12);
+            }
+
+            .type-hatchback {
+                background-position: calc(0px * 0.12) calc(-990px * 0.12);
+            }
+
+            .type-crossover {
+                background-position: calc(0px * 0.12) calc(-1500px * 0.12);
+            }
+
+            .type-name {
+                // border: 1px solid red;
+                text-align: center;
+                color: var(--bs-body-color);
+                color: var(--bs-gray-600);
+            }
+
+            &:hover,
+            &.selected {
+                .type-name {
+                    color: $primary-red-color;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .car-type-filter-container {
+        .car-type-list {
+            .car-type-item {
+                flex: 1 0 calc(33.333% - 20px);
+
+                .car-type-img {
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}
+
+// car-brand-filter
+.car-brand-filter-container {
+    .car-brand-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 20px;
+        width: 100%;
+
+        .car-brand-item {
+            // flex: 1 0 calc(33.333% - 20px);
+            cursor: pointer;
+            width: 80px;
+
+            .car-brand-logo {
+                width: 80px;
+            }
+
+            .car-brand-name {
+                width: 80px;
+                text-align: center;
+            }
+
+            &:hover .car-brand-name,
+            &.selected .car-brand-name {
+                color: $primary-red-color;
+            }
+        }
+    }
+}

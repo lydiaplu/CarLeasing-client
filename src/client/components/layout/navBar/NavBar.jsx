@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import Logout from '../auth/Logout'
+import { useSelector } from 'react-redux';
+import CustomerDropdown from './CustomerDropdown';
+import LogoutDropdown from './LogoutDropdown';
+import LoginDropdown from './LoginDropdown';
 
 function NavBar() {
-    const isLoggedIn = localStorage.getItem("token")
-    const userRole = localStorage.getItem("userRole")
+    const currentCustomer = useSelector((state) => state.customer).currentCustomer;
+    console.log("NavBar currentCustomer: ", currentCustomer);
 
     const [showAccount, setShowAccount] = useState(false);
 
@@ -13,7 +16,7 @@ function NavBar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow sticky-top">
             <div className="container-fluid">
 
                 {/* Logo */}
@@ -54,13 +57,13 @@ function NavBar() {
 
                     {/* the right nav button */}
                     <ul className="d-flex navbar-nav">
-                        {isLoggedIn && userRole === "ROLE_ADMIN" && (
+                        {/* {isLoggedIn && userRole === "ROLE_ADMIN" && (
                             <li className="nav-item">
                                 <NavLink className="nav-link" aria-current="page" to={"/admin"} >
                                     Admin
                                 </NavLink>
                             </li>
-                        )}
+                        )} */}
 
                         <li className="nav-item dropdown">
                             <a
@@ -75,27 +78,31 @@ function NavBar() {
                                 Account
                             </a>
 
-                            <ul
+                            <div
                                 className={`dropdown-menu ${showAccount ? "show" : ""}`}
                                 aria-labelledby="navbarDropdown"
                             >
-                                {isLoggedIn ? (
-                                    <Logout />
-                                ) : (
-                                    <li>
-                                        <Link className="dropdown-item" to={"/login"}>
-                                            Login
-                                        </Link>
-                                    </li>
-                                )}
-                            </ul>
+                                <ul className='dropdown-menu-list'>
+                                    {currentCustomer ? (
+                                        <>
+                                            <li>
+                                                <CustomerDropdown currentCustomer={currentCustomer} />
+                                            </li>
+                                            <li>
+                                                <LogoutDropdown />
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <li>
+                                            <LoginDropdown />
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
-
         </nav>
     )
 }

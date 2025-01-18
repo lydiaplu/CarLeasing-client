@@ -60,6 +60,9 @@ export async function getCarByCheckInOutDataAndFuletypeBrandModelType(searchInpu
 
         const params = new URLSearchParams(filterParams).toString();
         const result = await api.get(`/cars/all-by-checkinout-fueltype-brand-model-type?${params}`);
+
+        console.log(`/cars/all-by-checkinout-fueltype-brand-model-type?${params} :`, result);
+
         return result.data;
 
     } catch (error) {

@@ -1,5 +1,35 @@
 import { api, getHeader } from './apiConfig';
 
+export async function registerCustomer(email, password) {
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
+    const response = await api.post("/customers/register", formData, {
+        headers: { ...getHeader(), "Content-Type": "multipart/form-data" }
+    });
+
+    console.log("/customers/register", response);
+    return response;
+}
+
+export async function signinCustomer(email, password) {
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
+    const response = await api.post("/customers/login", formData, {
+        headers: { ...getHeader(), "Content-Type": "multipart/form-data" }
+    });
+
+    console.log("/customers/login: ", response);
+    if (response.status === 200) {
+        return response;
+    } else {
+        return false;
+    }
+}
+
 export async function addCustomer(customer) {
     const response = await api.post("/customers/add/new-customer", customer);
     console.log("/customers/add/new-customer: ", response);
@@ -32,6 +62,27 @@ export async function getCustomerById(customerId) {
 
     } catch (error) {
         throw new Error(`Error fetching car ${error.message}`)
+    }
+}
+
+export async function getCustomerByEmail(email) {
+    try {
+        const endoceEmail = encodeURIComponent(email);
+        const result = await api.get(`/customers/customer-email/${endoceEmail}`);
+        console.log(`/customers/customer/${endoceEmail}`, result);
+
+        return result.data;
+    } catch (error) {
+        throw new Error(`Error fetching ${error.message}`)
+    }
+}
+
+export async function getByDriverLicenseNumber(driverLicenseNumber) {
+    try {
+        const result = await api.get(`/customers/customer-driverlicensenumber/${driverLicenseNumber}`);
+        return result.data;
+    } catch (error) {
+        throw new Error(`Error fetching ${error.message}`)
     }
 }
 

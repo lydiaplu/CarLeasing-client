@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-export default function ImageUploader({ name, uploadImage, required = false }) {
+export default function ImageUploader({ name, uploadImage, required = false, isValid = true }) {
     const fileInputRef = useRef();
 
     const handleFileInputClick = () => {
@@ -10,7 +10,7 @@ export default function ImageUploader({ name, uploadImage, required = false }) {
     }
 
     return (
-        <div className="file-input-container" onClick={handleFileInputClick}>
+        <div className={`file-input-container ${!isValid && "form-error"}`} onClick={handleFileInputClick}>
             <i className="bi bi-plus-lg"></i>
             <input
                 type="file"

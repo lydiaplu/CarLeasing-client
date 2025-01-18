@@ -1,6 +1,6 @@
 import React from 'react'
 
-import MainHeader from '../layout/MainHeader'
+import MainHeader from './mainHeader/MainHeader'
 import Parallax from './parallax/Parallax'
 import Parallax2 from "./parallax/Parallax2"
 import CarSearch from './search/CarSearch'

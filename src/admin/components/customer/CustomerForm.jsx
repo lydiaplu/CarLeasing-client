@@ -43,7 +43,7 @@ export default function CustomerForm({ formState, onSubmit }) {
     const [customer, setCustomer] = useState(customerObj);
 
     useEffect(() => {
-        const fetchCar = async () => {
+        const fetchCustomer = async () => {
             try {
                 const fetchData = await getCustomerById(customerId);
                 console.log("get fetchData: ", fetchData);
@@ -59,7 +59,7 @@ export default function CustomerForm({ formState, onSubmit }) {
             }
         }
 
-        customerId && fetchCar();
+        customerId && fetchCustomer();
     }, [customerId])
 
     const clearForm = () => {
