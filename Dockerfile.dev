@@ -1,0 +1,23 @@
+# Use the official Node image as the build stage
+# FROM node:18 AS build
+FROM node:18-alpine 
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy dependency files and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy all project files into the container
+COPY . .
+
+# Expose port 5174 to the host
+EXPOSE 5174
+
+CMD ["npm", "run", "dev", "--", "--host"]
+
+# docker build -f Dockerfile.dev -t carleasing-client-dev:1.0 .
+
+# docker run -it --rm -p 5174:5174 carleasing-client-dev:1.0
+

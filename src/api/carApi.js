@@ -15,6 +15,7 @@ export async function editCar(carId, car) {
 export async function getCarById(carId) {
     try {
         const result = await api.get(`/cars/car/${carId}`);
+        console.log(`/cars/car/${carId}`, result);
         return result.data;
 
     } catch (error) {

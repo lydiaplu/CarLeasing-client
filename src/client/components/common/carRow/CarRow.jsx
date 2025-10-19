@@ -1,5 +1,6 @@
 import React from 'react'
 import { base64ToFile } from '../../../../utils/convertPicture'
+import { Link } from 'react-router-dom'
 
 export default function CarRow({ car }) {
     return (
@@ -21,7 +22,7 @@ export default function CarRow({ car }) {
 
             <div className='car-right'>
                 <p className="price">${car.price} / day</p>
-                <button className="book-now">Book Now</button>
+                <Link className="book-now" to={`/car/${car.id}`}>Book Now</Link>
             </div>
 
         </div>

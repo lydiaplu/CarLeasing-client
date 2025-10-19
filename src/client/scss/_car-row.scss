@@ -43,6 +43,7 @@
 
     .book-now {
         border: none;
+        text-decoration: none;
         background-color: rgb(169, 77, 123);
         color: #fff;
         padding: 5px 15px;
@@ -57,6 +58,24 @@
         outline-color: transparent;
         outline-style: solid;
     }
+}
 
+@media (max-width: 768px) {
+    .car-row {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 20px;
 
+        .car-left,
+        .car-right {
+            width: 100%;
+        }
+
+        .car-right {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: start;
+            gap: 10px;
+        }
+    }
 }

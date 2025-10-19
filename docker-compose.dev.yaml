@@ -1,0 +1,17 @@
+services:
+  web-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5174:5174"
+    volumes:
+      - .:/app # 把本地的项目文件挂载到容器内 /app
+      - /app/node_modules # 防止 node_modules 被覆盖，因为会覆盖上面会覆盖/app下所有文件
+    command: [ "npm", "run", "dev", "--", "--host" ]
+    # 若热更新不灵，可打开下面两行
+    # environment:
+    #   - CHOKIDAR_USEPOLLING=1
+    #   - CHOKIDAR_INTERVAL=300
+
+    # docker compose -f docker-compose.dev.yaml up --build

@@ -33,7 +33,7 @@ export default function Login() {
         try {
             const result = await signinCustomer(loginCustomer.email, loginCustomer.password);
 
-            if (result.status = "200") {
+            if (result.status === 200) {
                 const currentCustomer = {
                     customerId: result.data.id,
                     email: result.data.email,

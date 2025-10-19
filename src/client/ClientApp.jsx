@@ -9,8 +9,9 @@ import ResetPassword from "./components/auth/ResetPassword.jsx"
 import "./scss/client-app.scss";
 import Login from "./components/auth/Login.jsx";
 import Profile from "./components/customer/Profile.jsx"
-import CustomerLoader from "./features/customerLoader.jsx"
+import CustomerLoader from "./features/CustomerLoader.jsx"
 import BrowseAllCars from "./components/browseAllCars/BrowseAllCars.jsx"
+import CarDetail from "./components/carDetail/CarDetail.jsx"
 
 function ClientApp() {
     const location = useLocation();
@@ -29,6 +30,7 @@ function ClientApp() {
                 <Route path="reset-password" element={<ResetPassword />} />
                 <Route path="profile/:customerId" element={<Profile />} />
                 <Route path="browse-all-cars" element={<BrowseAllCars />} />
+                <Route path="car/:carId" element={<CarDetail />} />
             </Routes>
         </div>
     )

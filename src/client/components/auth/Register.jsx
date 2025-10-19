@@ -38,7 +38,7 @@ export default function Register() {
         try {
             const result = await registerCustomer(loginCustomer.email, loginCustomer.password);
 
-            if (result.status = "200") {
+            if (result.status === 200) {
                 const currentCustomer = {
                     customerId: result.data.id,
                     email: result.data.email
