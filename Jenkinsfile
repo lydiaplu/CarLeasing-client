@@ -2,20 +2,23 @@ pipeline {
     agent {
         docker {
             image 'node:20-alpine'       // 或 node:18-alpine
-            args '-v $HOME/.npm:/root/.npm' // 可选：缓存 npm
+            args "-v ${env.HOME}/.npm:/root/.npm -u root:root" // 可选：缓存 npm
+            reuseNode true
         }
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/lydiaplu/CarLeasing-client.git'
+                checkout scm
+                // git branch: 'main', url: 'https://github.com/lydiaplu/CarLeasing-client.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'node -v'
+                sh 'npm ci'   // 比 npm install 更稳定可重复
             }
         }
 
@@ -48,7 +51,7 @@ pipeline {
         }
 
         always {
-            cleanWs()  // 清空工作区（防止磁盘被占满）
+            // cleanWs()  // 清空工作区（防止磁盘被占满）
             echo "📦 Pipeline finished. Check above for results."
         }
     }
