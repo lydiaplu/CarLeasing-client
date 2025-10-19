@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20-alpine'       // 或 node:18-alpine
+            args '-v $HOME/.npm:/root/.npm' // 可选：缓存 npm
+        }
+    }
 
     stages {
         stage('Checkout') {
