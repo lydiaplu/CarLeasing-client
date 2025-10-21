@@ -10,8 +10,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
-                // git branch: 'main', url: 'https://github.com/lydiaplu/CarLeasing-client.git'
+                // checkout scm
+                git branch: 'main', url: 'https://github.com/lydiaplu/CarLeasing-client.git'
             }
         }
 
