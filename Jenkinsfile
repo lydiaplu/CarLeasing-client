@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:20-alpine'       // 或 node:18-alpine
-            args "-v ${env.HOME}/.npm:/root/.npm -u root:root" // 可选：缓存 npm
+            args "-v ${JENKINS_HOME}/.npm:/root/.npm -u root:root" // 可选：缓存 npm
             reuseNode true
         }
     }
