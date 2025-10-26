@@ -19,6 +19,7 @@ build/
 
 # Test
 coverage/
+reports/
 
 # Static files
 /public/static/

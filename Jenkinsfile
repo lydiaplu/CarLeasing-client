@@ -24,7 +24,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh 'npm run test:ci'
             }
         }
 
@@ -51,6 +51,12 @@ pipeline {
         }
 
         always {
+            // 1. 让 Jenkins 读取测试结果（会在构建详情里显示多少通过/失败）
+            junit 'reports/junit/junit.xml'
+
+            // 2. 保存覆盖率报告和 junit 报告作为构建产物，可点下载/浏览
+            archiveArtifacts artifacts: 'coverage/**, reports/junit/junit.xml', fingerprint: true
+            
             // cleanWs()  // 清空工作区（防止磁盘被占满）
             echo "📦 Pipeline finished. Check above for results."
         }
